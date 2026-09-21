@@ -1,5 +1,6 @@
 import SplashScreen from '@/screens/SplashScreen';
 
-export default function Index() {
+export default function SplashRoute() {
   return <SplashScreen />;
 }
+

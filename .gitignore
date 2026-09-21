@@ -5,7 +5,7 @@
 AGENTS.md
 CLAUDE.md
 package-lock.json
-.reference images/
+references/
 
 # dependencies
 node_modules/
