@@ -6,9 +6,7 @@ import {
   FlatList,
   NativeScrollEvent,
   NativeSyntheticEvent,
-  Platform,
   Pressable,
-  StyleSheet,
   Text,
   View,
 } from 'react-native';
@@ -29,21 +27,21 @@ const ONBOARDING_DATA: OnboardingSlide[] = [
     image: require('@/assets/images/onboarding 1.webp'),
     title: 'Explore Upcoming and\nNearby Events',
     description:
-      'In publishing and graphic design, Lorem is a placeholder text commonly',
+      'In publishing and graphic design, Lorem is\na placeholder text commonly',
   },
   {
     id: '2',
     image: require('@/assets/images/onboarding 2.webp'),
     title: 'Web Have Modern Events\nCalendar Feature',
     description:
-      'In publishing and graphic design, Lorem is a placeholder text commonly',
+      'In publishing and graphic design, Lorem is\na placeholder text commonly',
   },
   {
     id: '3',
     image: require('@/assets/images/onboarding 3.webp'),
     title: 'To Look Up More Events or\nActivities Nearby By Map',
     description:
-      'In publishing and graphic design, Lorem is a placeholder text commonly',
+      'In publishing and graphic design, Lorem is\na placeholder text commonly',
   },
 ];
 
@@ -92,14 +90,9 @@ export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) 
   const currentSlide = ONBOARDING_DATA[currentIndex];
 
   return (
-    <View className="flex-1 bg-white" style={styles.container}>
+    <View className="flex-1 bg-white">
       {/* Upper Area: Phone Mockup Illustrations Carousel */}
-      <View
-        className={`flex-1 justify-center items-center ${
-          Platform.OS === 'ios' ? 'pt-11' : 'pt-6'
-        }`}
-        style={styles.carouselContainer}
-      >
+      <View className="flex-1 justify-center items-center pt-6 ios:pt-11">
         <FlatList
           ref={flatListRef}
           data={ONBOARDING_DATA}
@@ -113,12 +106,16 @@ export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) 
           onMomentumScrollEnd={handleScroll}
           renderItem={({ item }) => (
             <View
-              style={[styles.slideWrapper, { width }]}
+              style={{ width }}
               className="items-center justify-center px-5 h-full"
             >
               <Image
                 source={item.image}
-                style={styles.illustrationImage}
+                style={{
+                  width: width * 0.85,
+                  height: height * 0.52,
+                  maxHeight: 460,
+                }}
                 contentFit="contain"
                 priority="high"
               />
@@ -128,53 +125,36 @@ export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) 
       </View>
 
       {/* Bottom Sheet: Vibrant Blue Container */}
-      <View
-        className="bg-primary rounded-t-5xl pt-9 px-9 items-center justify-between"
-        style={styles.bottomSheet}
-      >
+      <View className="bg-[#5669FF] rounded-t-5xl pt-9 px-9 items-center justify-between min-h-[38vh]">
         {/* Title */}
-        <Text
-          className="text-[22px] font-bold text-white text-center leading-8 tracking-tight"
-          style={styles.title}
-        >
+        <Text className="text-[22px] font-bold text-white text-center leading-8 tracking-tight">
           {currentSlide.title}
         </Text>
 
         {/* Description */}
-        <Text
-          className="text-[15px] text-white/80 text-center leading-6 mt-4 px-3"
-          style={styles.description}
-        >
+        <Text className="text-[15px] text-white/80 text-center leading-6 mt-4 px-3">
           {currentSlide.description}
         </Text>
 
         {/* Footer: Skip | Pagination Dots | Next */}
         <SafeAreaView
           edges={['bottom']}
-          className={`w-full mt-5 ${Platform.OS === 'ios' ? 'mb-3' : 'mb-6'}`}
-          style={styles.footerSafeArea}
+          className="w-full mt-5 mb-6 ios:mb-3"
         >
-          <View
-            className="w-full flex-row items-center justify-between px-2"
-            style={styles.footerRow}
-          >
+          <View className="w-full flex-row items-center justify-between px-2">
             {/* Skip Button */}
             <Pressable
               onPress={handleSkip}
               hitSlop={15}
               className="py-2 px-3 active:opacity-60"
-              style={styles.navButton}
             >
-              <Text
-                className="text-lg text-white/70 font-medium"
-                style={styles.skipText}
-              >
+              <Text className="text-lg text-white/70 font-medium">
                 Skip
               </Text>
             </Pressable>
 
             {/* Pagination Dots */}
-            <View className="flex-row items-center gap-2" style={styles.paginationRow}>
+            <View className="flex-row items-center gap-2">
               {ONBOARDING_DATA.map((_, index) => {
                 const isActive = index === currentIndex;
                 return (
@@ -187,10 +167,6 @@ export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) 
                       className={`h-2 rounded-full ${
                         isActive ? 'w-2 bg-white' : 'w-2 bg-white/30'
                       }`}
-                      style={[
-                        styles.dot,
-                        isActive ? styles.activeDot : styles.inactiveDot,
-                      ]}
                     />
                   </Pressable>
                 );
@@ -202,12 +178,8 @@ export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) 
               onPress={handleNext}
               hitSlop={15}
               className="py-2 px-3 active:opacity-60"
-              style={styles.navButton}
             >
-              <Text
-                className="text-lg text-white font-semibold"
-                style={styles.nextText}
-              >
+              <Text className="text-lg text-white font-semibold">
                 Next
               </Text>
             </Pressable>
@@ -217,94 +189,3 @@ export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) 
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  carouselContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  slideWrapper: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-    height: '100%',
-  },
-  illustrationImage: {
-    width: width * 0.85,
-    height: height * 0.52,
-    maxHeight: 460,
-  },
-  bottomSheet: {
-    backgroundColor: '#5669FF',
-    borderTopLeftRadius: 48,
-    borderTopRightRadius: 48,
-    paddingTop: 36,
-    paddingHorizontal: 36,
-    alignItems: 'center',
-    minHeight: height * 0.38,
-    justifyContent: 'space-between',
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: '#FFFFFF',
-    textAlign: 'center',
-    lineHeight: 32,
-    letterSpacing: -0.2,
-  },
-  description: {
-    fontSize: 15,
-    color: 'rgba(255, 255, 255, 0.8)',
-    textAlign: 'center',
-    lineHeight: 24,
-    marginTop: 16,
-    paddingHorizontal: 12,
-  },
-  footerSafeArea: {
-    width: '100%',
-    marginTop: 20,
-    marginBottom: Platform.OS === 'ios' ? 12 : 24,
-  },
-  footerRow: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 8,
-  },
-  navButton: {
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-  },
-  skipText: {
-    fontSize: 18,
-    color: 'rgba(255, 255, 255, 0.7)',
-    fontWeight: '500',
-  },
-  nextText: {
-    fontSize: 18,
-    color: '#FFFFFF',
-    fontWeight: '600',
-  },
-  paginationRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-  },
-  activeDot: {
-    backgroundColor: '#FFFFFF',
-  },
-  inactiveDot: {
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-  },
-});

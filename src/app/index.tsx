@@ -4,9 +4,7 @@ import { useEffect, useRef } from 'react';
 import {
   Animated,
   Dimensions,
-  Platform,
   Pressable,
-  StyleSheet,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -75,46 +73,53 @@ export default function SplashScreen({
 
   return (
     <Pressable
-      className="flex-1 bg-white relative overflow-hidden"
-      style={styles.container}
       onPress={handlePress}
+      className="flex-1 bg-white relative overflow-hidden"
     >
-      {/* Subtle ambient pastel glow background elements matching reference */}
+      {/* Subtle ambient pastel glow background elements */}
       <View
         pointerEvents="none"
         className="absolute rounded-full bg-[#F5E6FB] opacity-50 blur-3xl"
-        style={styles.topRightGlow}
+        style={{
+          top: -height * 0.1,
+          right: -width * 0.25,
+          width: width * 1.05,
+          height: width * 1.05,
+        }}
       />
       <View
         pointerEvents="none"
         className="absolute rounded-full bg-[#E8F1FD] opacity-55 blur-3xl"
-        style={styles.bottomRightGlow}
+        style={{
+          bottom: -height * 0.08,
+          right: -width * 0.15,
+          width: width * 0.95,
+          height: width * 0.95,
+        }}
       />
       <View
         pointerEvents="none"
         className="absolute rounded-full bg-[#FCEDF7] opacity-40 blur-2xl"
-        style={styles.topLeftGlow}
+        style={{
+          top: height * 0.05,
+          left: -width * 0.35,
+          width: width * 0.7,
+          height: width * 0.7,
+        }}
       />
 
-      <SafeAreaView
-        className="flex-1 items-center justify-center"
-        style={styles.content}
-      >
+      <SafeAreaView className="flex-1 items-center justify-center">
         {/* Centered EventHub Logo */}
         <Animated.View
           className="items-center justify-center"
-          style={[
-            styles.logoWrapper,
-            {
-              opacity: fadeAnim,
-              transform: [{ scale: scaleAnim }],
-            },
-          ]}
+          style={{
+            opacity: fadeAnim,
+            transform: [{ scale: scaleAnim }],
+          }}
         >
           <Image
             source={require('@/assets/images/logo.webp')}
-            className="w-[250px] h-[72px]"
-            style={styles.logo}
+            style={{ width: 250, height: 72 }}
             contentFit="contain"
             priority="high"
           />
@@ -123,70 +128,3 @@ export default function SplashScreen({
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  content: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logoWrapper: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logo: {
-    width: Math.min(width * 0.65, 270),
-    height: 72,
-  },
-  topRightGlow: {
-    position: 'absolute',
-    top: -height * 0.1,
-    right: -width * 0.25,
-    width: width * 1.05,
-    height: width * 1.05,
-    borderRadius: (width * 1.05) / 2,
-    backgroundColor: '#F5E6FB',
-    opacity: 0.5,
-    ...Platform.select({
-      web: {
-        filter: 'blur(80px)',
-      } as any,
-    }),
-  },
-  bottomRightGlow: {
-    position: 'absolute',
-    bottom: -height * 0.08,
-    right: -width * 0.15,
-    width: width * 0.95,
-    height: width * 0.95,
-    borderRadius: (width * 0.95) / 2,
-    backgroundColor: '#E8F1FD',
-    opacity: 0.55,
-    ...Platform.select({
-      web: {
-        filter: 'blur(90px)',
-      } as any,
-    }),
-  },
-  topLeftGlow: {
-    position: 'absolute',
-    top: height * 0.05,
-    left: -width * 0.35,
-    width: width * 0.7,
-    height: width * 0.7,
-    borderRadius: (width * 0.7) / 2,
-    backgroundColor: '#FCEDF7',
-    opacity: 0.4,
-    ...Platform.select({
-      web: {
-        filter: 'blur(70px)',
-      } as any,
-    }),
-  },
-});

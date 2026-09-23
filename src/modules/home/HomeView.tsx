@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-import { BottomTabBar, TabType } from './BottomTabBar';
+import { ScrollView, View } from 'react-native';
 import { CategoryList } from './CategoryList';
 import { HomeHeader } from './HomeHeader';
 import { InviteBanner } from './InviteBanner';
@@ -21,14 +20,14 @@ export function HomeView({
   onPressInvite,
 }: HomeViewProps) {
   const [activeCategory, setActiveCategory] = useState('Sports');
-  const [activeTab, setActiveTab] = useState<TabType>('Explore');
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <View style={styles.container}>
+    <View className="flex-1 bg-white">
       <ScrollView
+        className="flex-1"
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerClassName="pb-6"
       >
         {/* Blue Header Section */}
         <HomeHeader
@@ -54,26 +53,8 @@ export function HomeView({
         {/* Nearby Events */}
         <NearbyEvents />
       </ScrollView>
-
-      {/* Floating Bottom Tab Bar */}
-      <BottomTabBar
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-      />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  scrollContent: {
-    flexGrow: 1,
-    paddingBottom: 24,
-  },
-});
-
 export default HomeView;
-

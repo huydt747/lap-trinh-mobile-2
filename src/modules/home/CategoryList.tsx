@@ -1,5 +1,5 @@
 import { Crown, Music, Trophy, Utensils } from 'lucide-react-native';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 
 export interface CategoryListProps {
   activeCategory: string;
@@ -7,19 +7,19 @@ export interface CategoryListProps {
 }
 
 const CATEGORIES = [
-  { id: 'Sports', label: 'Sports', color: '#F0635A', icon: Trophy },
-  { id: 'Music', label: 'Music', color: '#F59762', icon: Music },
-  { id: 'Food', label: 'Food', color: '#29D697', icon: Utensils },
-  { id: 'Art', label: 'Art', color: '#46CDFB', icon: Crown },
+  { id: 'Sports', label: 'Sports', bg: 'bg-[#F0635A]', bgInactive: 'bg-[#F0635A]/80', icon: Trophy },
+  { id: 'Music', label: 'Music', bg: 'bg-[#F59762]', bgInactive: 'bg-[#F59762]/80', icon: Music },
+  { id: 'Food', label: 'Food', bg: 'bg-[#29D697]', bgInactive: 'bg-[#29D697]/80', icon: Utensils },
+  { id: 'Art', label: 'Art', bg: 'bg-[#46CDFB]', bgInactive: 'bg-[#46CDFB]/80', icon: Crown },
 ];
 
 export function CategoryList({ activeCategory, onSelectCategory }: CategoryListProps) {
   return (
-    <View style={styles.container}>
+    <View className="mt-4 mb-6">
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={{ paddingHorizontal: 20 }}
       >
         {CATEGORIES.map((cat) => {
           const Icon = cat.icon;
@@ -28,13 +28,12 @@ export function CategoryList({ activeCategory, onSelectCategory }: CategoryListP
             <Pressable
               key={cat.id}
               onPress={() => onSelectCategory(cat.id)}
-              style={[
-                styles.categoryPill,
-                { backgroundColor: isSelected ? cat.color : `${cat.color}CC` },
-              ]}
+              className={`flex-row items-center px-4 py-2.5 rounded-full mr-3 active:opacity-85 ${
+                isSelected ? cat.bg : cat.bgInactive
+              }`}
             >
               <Icon size={17} color="#FFFFFF" />
-              <Text style={styles.categoryText}>{cat.label}</Text>
+              <Text className="text-white text-[14px] font-medium ml-2">{cat.label}</Text>
             </Pressable>
           );
         })}
@@ -43,29 +42,4 @@ export function CategoryList({ activeCategory, onSelectCategory }: CategoryListP
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 16,
-    marginBottom: 24,
-  },
-  scrollContent: {
-    paddingHorizontal: 20,
-  },
-  categoryPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderRadius: 24,
-    marginRight: 12,
-  },
-  categoryText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '500',
-    marginLeft: 8,
-  },
-});
-
 export default CategoryList;
-

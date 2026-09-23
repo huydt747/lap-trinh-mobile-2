@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 export interface InviteBannerProps {
   onPressInvite?: () => void;
@@ -7,72 +7,30 @@ export interface InviteBannerProps {
 
 export function InviteBanner({ onPressInvite }: InviteBannerProps) {
   return (
-    <View style={styles.container}>
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>Invite your friends</Text>
-        <Text style={styles.subtitle}>Get $20 for ticket</Text>
+    <View className="mx-5 mb-7 rounded-2xl bg-[#D2F5F3] p-4 flex-row items-center justify-between overflow-hidden">
+      <View className="flex-1 pr-3">
+        <Text className="text-[18px] font-bold text-[#120D26] mb-1">
+          Invite your friends
+        </Text>
+        <Text className="text-[13px] text-[#484D70] mb-3">
+          Get $20 for ticket
+        </Text>
         <Pressable
           onPress={onPressInvite}
-          style={styles.inviteButton}
+          className="bg-[#00F8FF] rounded-lg px-4 py-2 self-start active:opacity-80"
         >
-          <Text style={styles.inviteButtonText}>INVITE</Text>
+          <Text className="text-white font-bold text-[12px] tracking-wider">
+            INVITE
+          </Text>
         </Pressable>
       </View>
       <Image
         source={{ uri: 'https://placehold.co/300x200/00F8FF/FFFFFF' }}
-        style={styles.bannerImage}
+        style={{ width: 100, height: 80, borderRadius: 12 }}
         contentFit="cover"
       />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 20,
-    marginBottom: 28,
-    borderRadius: 16,
-    backgroundColor: '#D2F5F3',
-    padding: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    overflow: 'hidden',
-  },
-  textContainer: {
-    flex: 1,
-    paddingRight: 12,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#120D26',
-    marginBottom: 4,
-  },
-  subtitle: {
-    fontSize: 13,
-    color: '#484D70',
-    marginBottom: 12,
-  },
-  inviteButton: {
-    backgroundColor: '#00F8FF',
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    alignSelf: 'flex-start',
-  },
-  inviteButtonText: {
-    color: '#FFFFFF',
-    fontWeight: '700',
-    fontSize: 12,
-    letterSpacing: 1,
-  },
-  bannerImage: {
-    width: 100,
-    height: 80,
-    borderRadius: 12,
-  },
-});
-
 export default InviteBanner;
-

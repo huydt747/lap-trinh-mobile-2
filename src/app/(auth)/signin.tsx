@@ -7,7 +7,6 @@ import {
   Platform,
   Pressable,
   ScrollView,
-  StyleSheet,
   Switch,
   Text,
   TextInput,
@@ -35,48 +34,39 @@ export default function SignInScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white" style={styles.container}>
+    <SafeAreaView className="flex-1 bg-white">
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         className="flex-1"
       >
         <ScrollView
-          contentContainerStyle={styles.scrollContent}
+          contentContainerStyle={{ paddingHorizontal: 28, flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
+          className='mt-12'
         >
           {/* Logo Section */}
-          <View className="items-center mt-20 mb-8" style={styles.logoSection}>
+          <View className="items-center mt-6 mb-8">
             <Image
               source={require('@/assets/images/logo_small.webp')}
-              style={styles.logoIcon}
+              className="w-[58px] h-[58px]"
               contentFit="contain"
             />
-            <Text
-              className="text-[35px] font-bold text-[#120D26] tracking-tight mt-1"
-              style={styles.logoText}
-            >
+            <Text className="text-[34px] font-bold text-[#37364A] tracking-tight mt-1">
               EventHub
             </Text>
           </View>
 
           {/* Heading */}
-          <Text
-            className="text-[24px] font-bold text-[#120D26] mb-5"
-            style={styles.heading}
-          >
+          <Text className="text-[24px] font-bold text-[#120D26] mb-5">
             Sign in
           </Text>
 
           {/* Email Input */}
-          <View
-            className="flex-row items-center border border-[#E4DFDF] rounded-xl px-4 h-14 bg-white mb-5"
-            style={styles.inputContainer}
-          >
+          <View className="flex-row items-center border border-[#E4DFDF] rounded-xl px-4 h-14 bg-white mb-5">
             <Mail size={22} color="#807A7A" />
             <TextInput
-              className="flex-1 ml-3 text-[15px] text-[#120D26]"
-              style={styles.textInput}
+              className="flex-1 ml-3 text-[14px] text-[#120D26]"
               placeholder="abc@email.com"
               placeholderTextColor="#747688"
               keyboardType="email-address"
@@ -87,14 +77,10 @@ export default function SignInScreen() {
           </View>
 
           {/* Password Input */}
-          <View
-            className="flex-row items-center border border-[#E4DFDF] rounded-xl px-4 h-14 bg-white mb-4"
-            style={styles.inputContainer}
-          >
+          <View className="flex-row items-center border border-[#E4DFDF] rounded-xl px-4 h-14 bg-white mb-4">
             <Lock size={22} color="#807A7A" />
             <TextInput
-              className="flex-1 ml-3 text-[15px] text-[#120D26]"
-              style={styles.textInput}
+              className="flex-1 ml-3 text-[14px] text-[#120D26]"
               placeholder="Your password"
               placeholderTextColor="#747688"
               secureTextEntry={!showPassword}
@@ -114,10 +100,7 @@ export default function SignInScreen() {
           </View>
 
           {/* Remember Me & Forgot Password Row */}
-          <View
-            className="flex-row items-center justify-between mb-8"
-            style={styles.optionsRow}
-          >
+          <View className="flex-row items-center justify-between mb-8">
             <View className="flex-row items-center">
               <Switch
                 value={rememberMe}
@@ -126,18 +109,12 @@ export default function SignInScreen() {
                 thumbColor="#FFFFFF"
                 style={Platform.OS === 'ios' ? { transform: [{ scale: 0.8 }] } : undefined}
               />
-              <Text
-                className="text-[14px] text-[#120D26] ml-2 font-medium"
-                style={styles.rememberMeText}
-              >
+              <Text className="text-[14px] text-[#120D26] ml-2 font-medium">
                 Remember Me
               </Text>
             </View>
             <Pressable onPress={handleForgotPassword} hitSlop={10}>
-              <Text
-                className="text-[14px] text-[#120D26] font-medium"
-                style={styles.forgotPasswordText}
-              >
+              <Text className="text-[14px] text-[#120D26] font-medium">
                 Forgot Password?
               </Text>
             </Pressable>
@@ -146,65 +123,43 @@ export default function SignInScreen() {
           {/* SIGN IN Button */}
           <Pressable
             onPress={handleSignIn}
-            className="bg-[#5669FF] h-14 rounded-2xl flex-row items-center justify-center relative shadow-lg active:opacity-90 mb-9"
-            style={styles.primaryButton}
+            className="bg-[#5669FF] h-[58px] rounded-[15px] flex-row items-center justify-center relative shadow-lg shadow-[#5669FF]/30 active:opacity-90 mb-9"
           >
-            <Text
-              className="text-white text-[16px] font-bold tracking-widest text-center"
-              style={styles.primaryButtonText}
-            >
+            <Text className="text-white text-[16px] font-bold tracking-widest text-center">
               SIGN IN
             </Text>
-            <View
-              className="absolute right-3.5 w-8 h-8 rounded-full bg-[#3D56F0] items-center justify-center"
-              style={styles.arrowCircle}
-            >
+            <View className="absolute right-3.5 w-[30px] h-[30px] rounded-full bg-[#3D56F0] items-center justify-center">
               <ArrowRight size={18} color="#FFFFFF" />
             </View>
           </Pressable>
 
           {/* OR Divider */}
-          <Text
-            className="text-center text-[#9D9898] text-[16px] font-medium mb-5"
-            style={styles.orText}
-          >
+          <Text className="text-center text-[#9D9898] text-[16px] font-semibold mb-5">
             OR
           </Text>
 
           {/* Social Logins */}
-          <View className="gap-4 mb-8" style={styles.socialButtonsContainer}>
+          <View className="gap-3.5 mb-8">
             {/* Google */}
-            <Pressable
-              className="flex-row items-center justify-center h-14 bg-white rounded-xl shadow-sm border border-[#F0ECEC] active:opacity-80"
-              style={styles.socialButton}
-            >
+            <Pressable className="flex-row items-center justify-center h-14 bg-white rounded-xl border border-[#F0ECEC] shadow-sm shadow-[#D3D1D8]/20 active:opacity-80">
               <Image
                 source={require('@/assets/images/google.webp')}
-                style={styles.socialIcon}
+                className="w-[25px] h-[25px]"
                 contentFit="contain"
               />
-              <Text
-                className="text-[#120D26] text-[15px] font-medium ml-3"
-                style={styles.socialButtonText}
-              >
+              <Text className="text-[#120D26] text-[14px] font-medium ml-3">
                 Login with Google
               </Text>
             </Pressable>
 
             {/* Facebook */}
-            <Pressable
-              className="flex-row items-center justify-center h-14 bg-white rounded-xl shadow-sm border border-[#F0ECEC] active:opacity-80"
-              style={styles.socialButton}
-            >
+            <Pressable className="flex-row items-center justify-center h-14 bg-white rounded-xl border border-[#F0ECEC] shadow-sm shadow-[#D3D1D8]/20 active:opacity-80">
               <Image
                 source={require('@/assets/images/facebook.webp')}
-                style={styles.socialIcon}
+                className="w-[25px] h-[25px]"
                 contentFit="contain"
               />
-              <Text
-                className="text-[#120D26] text-[15px] font-medium ml-3"
-                style={styles.socialButtonText}
-              >
+              <Text className="text-[#120D26] text-[14px] font-medium ml-3">
                 Login with Facebook
               </Text>
             </Pressable>
@@ -226,106 +181,3 @@ export default function SignInScreen() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  scrollContent: {
-    paddingHorizontal: 28,
-    flexGrow: 1,
-  },
-  logoSection: {
-    alignItems: 'center',
-  },
-  logoIcon: {
-    width: 58,
-    height: 58,
-  },
-  logoText: {
-    fontSize: 34,
-    fontWeight: '700',
-    color: '#37364A',
-  },
-  heading: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#120D26',
-  },
-  inputContainer: {
-    borderColor: '#E4DFDF',
-    borderWidth: 1,
-    borderRadius: 12,
-    backgroundColor: '#FFFFFF',
-  },
-  textInput: {
-    fontSize: 14,
-    color: '#120D26',
-  },
-  optionsRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  rememberMeText: {
-    fontSize: 14,
-    color: '#120D26',
-  },
-  forgotPasswordText: {
-    fontSize: 14,
-    color: '#120D26',
-  },
-  primaryButton: {
-    backgroundColor: '#5669FF',
-    height: 58,
-    borderRadius: 15,
-    shadowColor: '#5669FF',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    elevation: 5,
-  },
-  primaryButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '700',
-    letterSpacing: 1,
-  },
-  arrowCircle: {
-    backgroundColor: '#3D56F0',
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-  },
-  orText: {
-    color: '#9D9898',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  socialButtonsContainer: {
-    gap: 14,
-  },
-  socialButton: {
-    height: 56,
-    borderRadius: 12,
-    backgroundColor: '#FFFFFF',
-    borderColor: '#F0ECEC',
-    borderWidth: 1,
-    shadowColor: '#D3D1D8',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.18,
-    shadowRadius: 8,
-    elevation: 2,
-  },
-  socialIcon: {
-    width: 25,
-    height: 25,
-  },
-  socialButtonText: {
-    fontSize: 14,
-    color: '#120D26',
-    fontWeight: '500',
-  },
-});
-

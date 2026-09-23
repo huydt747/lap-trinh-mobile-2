@@ -1,4 +1,4 @@
-import { HomeView } from '@/modules/home';
+import { BottomTabBar, HomeView, TabType } from '@/modules/home';
 import { SideMenu } from '@/modules/menu';
 import { useRouter } from 'expo-router';
 import { useRef, useState } from 'react';
@@ -8,7 +8,6 @@ import {
   Easing,
   Pressable,
   StatusBar,
-  StyleSheet,
   View,
 } from 'react-native';
 
@@ -17,6 +16,7 @@ const DRAWER_WIDTH = width * 0.75; // Bề rộng menu (75% màn hình)
 
 export default function HomeScreen() {
   const router = useRouter();
+  const [activeTab, setActiveTab] = useState<TabType>('Explore');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const drawerAnim = useRef(new Animated.Value(0)).current;
 
@@ -58,27 +58,25 @@ export default function HomeScreen() {
   };
 
   // --- Animation trượt song song (Push style) ---
-  // Cả Menu và Màn hình chính sẽ cùng trượt một khoảng DRAWER_WIDTH sang bên phải
   const translateX = drawerAnim.interpolate({
     inputRange: [0, 1],
     outputRange: [0, DRAWER_WIDTH],
   });
 
   return (
-    <View style={styles.rootContainer}>
-      <StatusBar barStyle={isDrawerOpen ? 'dark-content' : 'dark-content'} />
+    <View className="flex-1 bg-white overflow-hidden">
+      <StatusBar barStyle="dark-content" />
 
       {/* Khung chứa cả Side Menu & Main Content cùng trượt */}
       <Animated.View
-        style={[
-          styles.animatedContainer,
-          {
-            transform: [{ translateX }],
-          },
-        ]}
+        className="flex-1 flex-row w-full h-full"
+        style={{ transform: [{ translateX }] }}
       >
         {/* 1. Side Menu nằm cố định ở lề ngoài bên trái (-DRAWER_WIDTH) */}
-        <View style={[styles.drawerWrapper, { width: DRAWER_WIDTH, left: -DRAWER_WIDTH }]}>
+        <View
+          className="absolute top-0 bottom-0 h-full z-20 bg-white shadow-md"
+          style={{ width: DRAWER_WIDTH, left: -DRAWER_WIDTH }}
+        >
           <SideMenu
             onClose={closeDrawer}
             onSignOut={handleSignOut}
@@ -87,57 +85,25 @@ export default function HomeScreen() {
         </View>
 
         {/* 2. Màn hình chính chiếm full width */}
-        <View style={styles.mainHomeContainer}>
+        <View className="flex-1 w-full h-full bg-white flex-col">
           {/* Lớp phủ mờ chặn thao tác trên màn hình chính khi menu mở */}
           {isDrawerOpen && (
             <Pressable
               onPress={closeDrawer}
-              style={styles.drawerBackdrop}
+              className="absolute inset-0 bg-black/10 z-10"
             />
           )}
 
           {/* Màn hình chính với nút hamburger toggle */}
           <HomeView onOpenMenu={toggleDrawer} />
+
+          {/* Bottom Tab Bar hiển thị cố định ở chân màn hình */}
+          <BottomTabBar
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+          />
         </View>
       </Animated.View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    overflow: 'hidden',
-  },
-  animatedContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    width: '100%',
-  },
-  drawerWrapper: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    height: '100%',
-    zIndex: 2,
-    backgroundColor: '#FFFFFF',
-    // Đổ bóng ở mép nối giữa Side Menu và Main Content
-    shadowColor: '#000',
-    shadowOffset: { width: 3, height: 0 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 6,
-  },
-  mainHomeContainer: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#FFFFFF',
-  },
-  drawerBackdrop: {
-    ...StyleSheet.absoluteFill,
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-    zIndex: 10,
-  },
-});

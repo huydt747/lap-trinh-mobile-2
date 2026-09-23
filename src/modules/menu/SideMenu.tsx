@@ -14,7 +14,6 @@ import {
 import {
   Pressable,
   ScrollView,
-  StyleSheet,
   Text,
   View,
 } from 'react-native';
@@ -50,196 +49,114 @@ export function SideMenu({ onClose, onSignOut, width }: SideMenuProps) {
   return (
     <SafeAreaView
       edges={['top', 'left', 'bottom']}
-      style={[styles.drawerContainer, width ? { width } : undefined]}
+      className="bg-white pl-6 h-full"
+      style={width ? { width } : undefined}
     >
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={{ paddingBottom: 30 }}
+        className="ml-7"
       >
         {/* User Profile Section */}
-        <View style={styles.profileSection}>
+        <View className="pt-4 mb-7">
           <Image
             source={{ uri: 'https://placehold.co/200x200/EEE/31343C' }}
-            style={styles.avatarImage}
+            style={{ width: 64, height: 64, borderRadius: 32, backgroundColor: '#EEEEEE' }}
             contentFit="cover"
           />
-          <Text style={styles.profileName}>
+          <Text className="text-[19px] font-bold text-[#120D26] mt-3">
             Ashfak Sayem
           </Text>
         </View>
 
         {/* Menu Items List */}
-        <View style={styles.menuList}>
+        <View className="gap-6 mb-8">
           {/* My Profile */}
           <Pressable
             onPress={() => handleItemPress()}
-            style={styles.menuItem}
+            className="flex-row items-center py-1 active:opacity-70"
           >
             <User size={23} color="#747688" />
-            <Text style={styles.menuText}>My Profile</Text>
+            <Text className="text-[16px] text-[#120D26] font-medium ml-3.5">My Profile</Text>
           </Pressable>
 
           {/* Massage with badge 3 */}
           <Pressable
             onPress={() => handleItemPress()}
-            style={styles.menuItemWithBadge}
+            className="flex-row items-center justify-between py-1 active:opacity-70"
           >
-            <View style={styles.menuItemLeft}>
+            <View className="flex-row items-center">
               <MessageSquare size={23} color="#747688" />
-              <Text style={styles.menuText}>Massage</Text>
+              <Text className="text-[16px] text-[#120D26] font-medium ml-3.5">Message</Text>
             </View>
-            <View style={styles.badge}>
-              <Text style={styles.badgeText}>3</Text>
+            <View className="bg-[#F59762] w-5 h-5 rounded-full items-center justify-center mr-6">
+              <Text className="text-[11px] text-white font-bold">3</Text>
             </View>
           </Pressable>
 
           {/* Calender */}
           <Pressable
             onPress={() => handleItemPress(() => router.push('/events'))}
-            style={styles.menuItem}
+            className="flex-row items-center py-1 active:opacity-70"
           >
             <Calendar size={23} color="#747688" />
-            <Text style={styles.menuText}>Calender</Text>
+            <Text className="text-[16px] text-[#120D26] font-medium ml-3.5">Calendar</Text>
           </Pressable>
 
           {/* Bookmark */}
           <Pressable
             onPress={() => handleItemPress()}
-            style={styles.menuItem}
+            className="flex-row items-center py-1 active:opacity-70"
           >
             <Bookmark size={23} color="#747688" />
-            <Text style={styles.menuText}>Bookmark</Text>
+            <Text className="text-[16px] text-[#120D26] font-medium ml-3.5">Bookmark</Text>
           </Pressable>
 
           {/* Contact Us */}
           <Pressable
             onPress={() => handleItemPress()}
-            style={styles.menuItem}
+            className="flex-row items-center py-1 active:opacity-70"
           >
             <Mail size={23} color="#747688" />
-            <Text style={styles.menuText}>Contact Us</Text>
+            <Text className="text-[16px] text-[#120D26] font-medium ml-3.5">Contact Us</Text>
           </Pressable>
 
           {/* Settings */}
           <Pressable
             onPress={() => handleItemPress()}
-            style={styles.menuItem}
+            className="flex-row items-center py-1 active:opacity-70"
           >
             <Settings size={23} color="#747688" />
-            <Text style={styles.menuText}>Settings</Text>
+            <Text className="text-[16px] text-[#120D26] font-medium ml-3.5">Settings</Text>
           </Pressable>
 
           {/* Helps & FAQs */}
           <Pressable
             onPress={() => handleItemPress()}
-            style={styles.menuItem}
+            className="flex-row items-center py-1 active:opacity-70"
           >
             <CircleHelp size={23} color="#747688" />
-            <Text style={styles.menuText}>Helps & FAQs</Text>
+            <Text className="text-[16px] text-[#120D26] font-medium ml-3.5">Helps & FAQs</Text>
           </Pressable>
 
           {/* Sign Out */}
           <Pressable
             onPress={handleSignOutPress}
-            style={styles.menuItem}
+            className="flex-row items-center py-1 active:opacity-70"
           >
             <LogOut size={23} color="#747688" />
-            <Text style={styles.menuText}>Sign Out</Text>
+            <Text className="text-[16px] text-[#120D26] font-medium ml-3.5">Sign Out</Text>
           </Pressable>
         </View>
 
         {/* Upgrade Pro Button */}
-        <Pressable style={styles.upgradeButton}>
+        <Pressable className="flex-row items-center bg-[#E6FCFC] rounded-xl px-4 py-3 self-start mt-2 mb-6 active:opacity-80">
           <Crown size={20} color="#00D2D7" />
-          <Text style={styles.upgradeText}>Upgrade Pro</Text>
+          <Text className="text-[#00D2D7] text-[14px] font-semibold ml-2">Upgrade Pro</Text>
         </Pressable>
       </ScrollView>
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  drawerContainer: {
-    backgroundColor: '#FFFFFF',
-    paddingLeft: 24,
-    height: '100%',
-  },
-  scrollContent: {
-    paddingBottom: 30,
-  },
-  profileSection: {
-    paddingTop: 16,
-    marginBottom: 28,
-  },
-  avatarImage: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    backgroundColor: '#EEEEEE',
-  },
-  profileName: {
-    fontSize: 19,
-    fontWeight: '700',
-    color: '#120D26',
-    marginTop: 12,
-  },
-  menuList: {
-    gap: 24,
-    marginBottom: 32,
-  },
-  menuItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 4,
-  },
-  menuItemWithBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 4,
-  },
-  menuItemLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  menuText: {
-    fontSize: 16,
-    color: '#120D26',
-    fontWeight: '500',
-    marginLeft: 14,
-  },
-  badge: {
-    backgroundColor: '#F59762',
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 24,
-  },
-  badgeText: {
-    fontSize: 11,
-    color: '#FFFFFF',
-    fontWeight: '700',
-  },
-  upgradeButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#E6FCFC',
-    borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    alignSelf: 'flex-start',
-    marginTop: 8,
-    marginBottom: 24,
-  },
-  upgradeText: {
-    color: '#00CCD8',
-    fontSize: 14,
-    fontWeight: '600',
-    marginLeft: 8,
-  },
-});
-
 export default SideMenu;
-

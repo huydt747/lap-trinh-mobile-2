@@ -21,7 +21,14 @@ export default function RootLayout() {
           contentStyle: { backgroundColor: '#FFFFFF' },
           animation: 'fade',
         }}
-      />
+      >
+        <Stack.Screen name="index" />
+        <Stack.Screen name="onboarding" />
+        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="home" />
+        <Stack.Screen name="events" />
+      </Stack>
     </>
   );
 }
+

@@ -1,6 +1,6 @@
 import { Image } from 'expo-image';
 import { ChevronRight, MapPin } from 'lucide-react-native';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 export interface NearbyEventItem {
   id: string;
@@ -32,12 +32,12 @@ export function NearbyEvents({
   onSelectEvent,
 }: NearbyEventsProps) {
   return (
-    <View style={styles.container}>
+    <View className="mb-6">
       {/* Section Header */}
-      <View style={styles.headerRow}>
-        <Text style={styles.sectionTitle}>Nearby You</Text>
-        <Pressable onPress={onSeeAll} style={styles.seeAllButton} hitSlop={10}>
-          <Text style={styles.seeAllText}>See All</Text>
+      <View className="flex-row items-center justify-between px-5 mb-4">
+        <Text className="text-[18px] font-bold text-[#120D26]">Nearby You</Text>
+        <Pressable onPress={onSeeAll} className="flex-row items-center" hitSlop={10}>
+          <Text className="text-[14px] text-[#747688] mr-1">See All</Text>
           <ChevronRight size={14} color="#747688" />
         </Pressable>
       </View>
@@ -47,21 +47,21 @@ export function NearbyEvents({
         <Pressable
           key={event.id}
           onPress={() => onSelectEvent?.(event)}
-          style={styles.eventCard}
+          className="mx-5 bg-white rounded-2xl p-3 shadow-sm border border-[#F2F2F2] flex-row items-center active:opacity-90"
         >
           <Image
             source={{ uri: event.image }}
-            style={styles.eventImage}
+            style={{ width: 72, height: 72, borderRadius: 12 }}
             contentFit="cover"
           />
-          <View style={styles.infoContainer}>
-            <Text style={styles.timeText}>{event.time}</Text>
-            <Text numberOfLines={1} style={styles.titleText}>
+          <View className="flex-1 ml-3.5 justify-center">
+            <Text className="text-[12px] text-[#5669FF] font-medium mb-1">{event.time}</Text>
+            <Text numberOfLines={1} className="text-[15px] font-bold text-[#120D26] mb-1.5">
               {event.title}
             </Text>
-            <View style={styles.locationRow}>
+            <View className="flex-row items-center">
               <MapPin size={13} color="#716E90" />
-              <Text numberOfLines={1} style={styles.locationText}>
+              <Text numberOfLines={1} className="text-[12px] text-[#747688] ml-1 flex-1">
                 {event.location}
               </Text>
             </View>
@@ -72,79 +72,4 @@ export function NearbyEvents({
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: 24,
-  },
-  headerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    marginBottom: 16,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#120D26',
-  },
-  seeAllButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  seeAllText: {
-    fontSize: 14,
-    color: '#747688',
-    marginRight: 4,
-  },
-  eventCard: {
-    marginHorizontal: 20,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 12,
-    shadowColor: '#505588',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.06,
-    shadowRadius: 8,
-    elevation: 2,
-    borderWidth: 1,
-    borderColor: '#F2F2F2',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  eventImage: {
-    width: 72,
-    height: 72,
-    borderRadius: 12,
-  },
-  infoContainer: {
-    flex: 1,
-    marginLeft: 14,
-    justifyContent: 'center',
-  },
-  timeText: {
-    fontSize: 12,
-    color: '#5669FF',
-    fontWeight: '500',
-    marginBottom: 4,
-  },
-  titleText: {
-    fontSize: 15,
-    fontWeight: '700',
-    color: '#120D26',
-    marginBottom: 6,
-  },
-  locationRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  locationText: {
-    fontSize: 12,
-    color: '#747688',
-    marginLeft: 4,
-    flex: 1,
-  },
-});
-
 export default NearbyEvents;
-

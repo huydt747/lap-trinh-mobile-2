@@ -6,7 +6,8 @@ import {
   Plus,
   User,
 } from 'lucide-react-native';
-import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export type TabType = 'Explore' | 'Events' | 'Map' | 'Profile';
 
@@ -22,19 +23,33 @@ export function BottomTabBar({
   onPressAdd,
 }: BottomTabBarProps) {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
+
+  const handleTabPress = (tab: TabType) => {
+    onTabChange(tab);
+    if (tab === 'Events') {
+      router.push('/events');
+    }
+  };
+
   return (
-    <View style={styles.container}>
+    <View
+      className="bg-white border-t border-[#F2F2F2] flex-row items-center justify-around px-2 shadow-lg shadow-black/10"
+      style={{ paddingBottom: Math.max(insets.bottom, 12), paddingTop: 8 }}
+    >
       {/* Tab 1: Explore */}
       <Pressable
-        onPress={() => onTabChange('Explore')}
-        style={styles.tabItem}
+        onPress={() => handleTabPress('Explore')}
+        className="items-center py-1 flex-1 active:opacity-75"
       >
-        <Compass size={22} color={activeTab === 'Explore' ? '#5669FF' : '#747688'} />
+        <Compass
+          size={22}
+          color={activeTab === 'Explore' ? '#5669FF' : '#747688'}
+        />
         <Text
-          style={[
-            styles.tabText,
-            { color: activeTab === 'Explore' ? '#5669FF' : '#747688' },
-          ]}
+          className={`text-[11px] mt-1 font-medium ${
+            activeTab === 'Explore' ? 'text-[#5669FF]' : 'text-[#747688]'
+          }`}
         >
           Explore
         </Text>
@@ -42,28 +57,27 @@ export function BottomTabBar({
 
       {/* Tab 2: Events */}
       <Pressable
-        onPress={() => {
-          onTabChange('Events');
-          router.push('/events');
-        }}
-        style={styles.tabItem}
+        onPress={() => handleTabPress('Events')}
+        className="items-center py-1 flex-1 active:opacity-75"
       >
-        <Calendar size={22} color={activeTab === 'Events' ? '#5669FF' : '#747688'} />
+        <Calendar
+          size={22}
+          color={activeTab === 'Events' ? '#5669FF' : '#747688'}
+        />
         <Text
-          style={[
-            styles.tabText,
-            { color: activeTab === 'Events' ? '#5669FF' : '#747688' },
-          ]}
+          className={`text-[11px] mt-1 font-medium ${
+            activeTab === 'Events' ? 'text-[#5669FF]' : 'text-[#747688]'
+          }`}
         >
           Events
         </Text>
       </Pressable>
 
       {/* Center Floating Action Button */}
-      <View style={styles.floatingButtonContainer}>
+      <View className="items-center -mt-7 flex-1">
         <Pressable
           onPress={onPressAdd}
-          style={styles.floatingButton}
+          className="w-12 h-12 rounded-full bg-[#5669FF] items-center justify-center shadow-lg shadow-[#5669FF]/50 active:opacity-90"
         >
           <Plus size={24} color="#FFFFFF" strokeWidth={2.5} />
         </Pressable>
@@ -71,15 +85,17 @@ export function BottomTabBar({
 
       {/* Tab 3: Map */}
       <Pressable
-        onPress={() => onTabChange('Map')}
-        style={styles.tabItem}
+        onPress={() => handleTabPress('Map')}
+        className="items-center py-1 flex-1 active:opacity-75"
       >
-        <MapPin size={22} color={activeTab === 'Map' ? '#5669FF' : '#747688'} />
+        <MapPin
+          size={22}
+          color={activeTab === 'Map' ? '#5669FF' : '#747688'}
+        />
         <Text
-          style={[
-            styles.tabText,
-            { color: activeTab === 'Map' ? '#5669FF' : '#747688' },
-          ]}
+          className={`text-[11px] mt-1 font-medium ${
+            activeTab === 'Map' ? 'text-[#5669FF]' : 'text-[#747688]'
+          }`}
         >
           Map
         </Text>
@@ -87,15 +103,17 @@ export function BottomTabBar({
 
       {/* Tab 4: Profile */}
       <Pressable
-        onPress={() => onTabChange('Profile')}
-        style={styles.tabItem}
+        onPress={() => handleTabPress('Profile')}
+        className="items-center py-1 flex-1 active:opacity-75"
       >
-        <User size={22} color={activeTab === 'Profile' ? '#5669FF' : '#747688'} />
+        <User
+          size={22}
+          color={activeTab === 'Profile' ? '#5669FF' : '#747688'}
+        />
         <Text
-          style={[
-            styles.tabText,
-            { color: activeTab === 'Profile' ? '#5669FF' : '#747688' },
-          ]}
+          className={`text-[11px] mt-1 font-medium ${
+            activeTab === 'Profile' ? 'text-[#5669FF]' : 'text-[#747688]'
+          }`}
         >
           Profile
         </Text>
@@ -104,52 +122,4 @@ export function BottomTabBar({
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#FFFFFF',
-    borderTopColor: '#F2F2F2',
-    borderTopWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingVertical: 8,
-    paddingHorizontal: 8,
-    paddingBottom: Platform.OS === 'ios' ? 24 : 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: -4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
-    elevation: 8,
-  },
-  tabItem: {
-    alignItems: 'center',
-    paddingVertical: 4,
-    flex: 1,
-  },
-  tabText: {
-    fontSize: 11,
-    marginTop: 4,
-    fontWeight: '500',
-  },
-  floatingButtonContainer: {
-    alignItems: 'center',
-    marginTop: -24,
-    flex: 1,
-  },
-  floatingButton: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: '#5669FF',
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#5669FF',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.4,
-    shadowRadius: 8,
-    elevation: 6,
-  },
-});
-
 export default BottomTabBar;
-

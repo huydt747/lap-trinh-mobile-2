@@ -7,7 +7,6 @@ import {
 } from 'lucide-react-native';
 import {
     Pressable,
-    StyleSheet,
     Text,
     TextInput,
     View,
@@ -32,159 +31,64 @@ export function HomeHeader({
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={[styles.container, { paddingTop: Math.max(insets.top, 20) + 12 }]}>
+    <View
+      className="bg-[#4A5EF6] rounded-b-[32px] pb-6 px-5"
+      style={{ paddingTop: Math.max(insets.top, 20) + 12 }}
+    >
       {/* Top Bar: Menu Hamburger | Location Dropdown | Notification Bell */}
-      <View style={styles.topBar}>
+      <View className="flex-row items-center justify-between mb-5">
         {/* Hamburger Menu Toggle */}
         <Pressable onPress={onOpenMenu} hitSlop={15}>
           <Menu size={26} color="#FFFFFF" />
         </Pressable>
 
         {/* Current Location */}
-        <View style={styles.locationContainer}>
-          <View style={styles.locationRow}>
-            <Text style={styles.locationLabel}>Current Location</Text>
+        <View className="items-center">
+          <View className="flex-row items-center">
+            <Text className="text-[12px] text-white/80 font-normal">Current Location</Text>
             <ChevronDown size={14} color="rgba(255,255,255,0.8)" style={{ marginLeft: 3 }} />
           </View>
-          <Text style={styles.locationValue}>New York, USA</Text>
+          <Text className="text-[14px] text-white font-semibold mt-0.5">New York, USA</Text>
         </View>
 
         {/* Notification Bell */}
         <Pressable
           onPress={onPressNotification}
-          style={styles.bellButton}
+          className="w-9 h-9 rounded-full bg-white/15 items-center justify-center relative active:opacity-80"
           hitSlop={10}
         >
           <Bell size={18} color="#FFFFFF" />
-          <View style={styles.bellDot} />
+          <View className="w-2 h-2 rounded-full bg-[#00F8FF] absolute top-1.5 right-1.5" />
         </Pressable>
       </View>
 
       {/* Search and Filters Bar */}
-      <View style={styles.searchRow}>
-        <View style={styles.searchInputContainer}>
+      <View className="flex-row items-center justify-between">
+        <View className="flex-1 flex-row items-center mr-3">
           <Search size={22} color="#FFFFFF" style={{ opacity: 0.9 }} />
-          <View style={styles.searchDivider} />
+          <View className="w-[1px] h-4 bg-white/30 mx-2.5" />
           <TextInput
             value={searchQuery}
             onChangeText={onSearchChange}
             placeholder="Search..."
             placeholderTextColor="rgba(255, 255, 255, 0.6)"
-            style={styles.searchInput}
+            className="flex-1 text-[15px] text-white py-1"
           />
         </View>
 
         {/* Filters Pill */}
         <Pressable
           onPress={onPressFilter}
-          style={styles.filterButton}
+          className="flex-row items-center bg-[#5D56F3] rounded-full px-3.5 py-2 active:opacity-85"
         >
-          <View style={styles.filterIconCircle}>
+          <View className="w-5 h-5 rounded-full bg-[#4A5EF6] items-center justify-center mr-1.5">
             <SlidersHorizontal size={13} color="#FFFFFF" />
           </View>
-          <Text style={styles.filterText}>Filters</Text>
+          <Text className="text-white text-[13px] font-medium">Filters</Text>
         </Pressable>
       </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#4A5EF6',
-    borderBottomLeftRadius: 32,
-    borderBottomRightRadius: 32,
-    paddingBottom: 26,
-    paddingHorizontal: 20,
-  },
-  topBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  locationContainer: {
-    alignItems: 'center',
-  },
-  locationRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  locationLabel: {
-    fontSize: 12,
-    color: 'rgba(255, 255, 255, 0.8)',
-    fontWeight: '400',
-  },
-  locationValue: {
-    fontSize: 14,
-    color: '#FFFFFF',
-    fontWeight: '600',
-    marginTop: 2,
-  },
-  bellButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-  },
-  bellDot: {
-    width: 7,
-    height: 7,
-    borderRadius: 3.5,
-    backgroundColor: '#00F8FF',
-    position: 'absolute',
-    top: 7,
-    right: 7,
-  },
-  searchRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  searchInputContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 12,
-  },
-  searchDivider: {
-    width: 1,
-    height: 16,
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-    marginHorizontal: 10,
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: 15,
-    color: '#FFFFFF',
-    paddingVertical: 4,
-  },
-  filterButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#5D56F3',
-    borderRadius: 24,
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-  },
-  filterIconCircle: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    backgroundColor: '#4A5EF6',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 6,
-  },
-  filterText: {
-    color: '#FFFFFF',
-    fontSize: 13,
-    fontWeight: '500',
-  },
-});
-
 export default HomeHeader;
-
