@@ -95,7 +95,7 @@ export function SideMenu({ onClose, onSignOut, width }: SideMenuProps) {
 
           {/* Calender */}
           <Pressable
-            onPress={() => handleItemPress()}
+            onPress={() => handleItemPress(() => router.push('/events'))}
             style={styles.menuItem}
           >
             <Calendar size={23} color="#747688" />

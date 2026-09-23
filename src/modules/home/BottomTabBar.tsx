@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router';
 import {
   Calendar,
   Compass,
@@ -20,6 +21,7 @@ export function BottomTabBar({
   onTabChange,
   onPressAdd,
 }: BottomTabBarProps) {
+  const router = useRouter();
   return (
     <View style={styles.container}>
       {/* Tab 1: Explore */}
@@ -40,7 +42,10 @@ export function BottomTabBar({
 
       {/* Tab 2: Events */}
       <Pressable
-        onPress={() => onTabChange('Events')}
+        onPress={() => {
+          onTabChange('Events');
+          router.push('/events');
+        }}
         style={styles.tabItem}
       >
         <Calendar size={22} color={activeTab === 'Events' ? '#5669FF' : '#747688'} />
