@@ -28,6 +28,7 @@ export default function RootLayout() {
         <Stack.Screen name="home" />
         <Stack.Screen name="events" />
         <Stack.Screen name="profile" />
+        <Stack.Screen name="notification" />
       </Stack>
     </>
   );

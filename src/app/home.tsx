@@ -95,7 +95,10 @@ export default function HomeScreen() {
           )}
 
           {/* Màn hình chính với nút hamburger toggle */}
-          <HomeView onOpenMenu={toggleDrawer} />
+          <HomeView
+            onOpenMenu={toggleDrawer}
+            onPressNotification={() => router.push('/notification')}
+          />
 
           {/* Bottom Tab Bar hiển thị cố định ở chân màn hình */}
           <BottomTabBar
