@@ -60,7 +60,7 @@ export function SideMenu({ onClose, onSignOut, width }: SideMenuProps) {
         {/* User Profile Section */}
         <View className="pt-4 mb-7">
           <Image
-            source={{ uri: 'https://placehold.co/200x200/EEE/31343C' }}
+            source={require('@/assets/images/avatar 1.png')}
             style={{ width: 64, height: 64, borderRadius: 32, backgroundColor: '#EEEEEE' }}
             contentFit="cover"
           />
@@ -73,7 +73,7 @@ export function SideMenu({ onClose, onSignOut, width }: SideMenuProps) {
         <View className="gap-6 mb-8">
           {/* My Profile */}
           <Pressable
-            onPress={() => handleItemPress()}
+            onPress={() => handleItemPress(() => router.push('/profile'))}
             className="flex-row items-center py-1 active:opacity-70"
           >
             <User size={23} color="#747688" />

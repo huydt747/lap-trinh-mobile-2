@@ -22,7 +22,7 @@ export default function SplashScreen({
   onFinish,
   nextRoute = '/onboarding',
   autoNavigate = true,
-  duration = 2000,
+  duration = 3000,
 }: SplashScreenProps) {
   const router = useRouter();
   const fadeAnim = useRef(new Animated.Value(0)).current;

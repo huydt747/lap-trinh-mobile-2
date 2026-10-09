@@ -29,6 +29,8 @@ export function BottomTabBar({
     onTabChange(tab);
     if (tab === 'Events') {
       router.push('/events');
+    } else if (tab === 'Profile') {
+      router.push('/profile');
     }
   };
 
