@@ -7,7 +7,7 @@ export interface EventItem {
   title: string;
   dateDay: string;
   dateMonth: string;
-  image: string;
+  image: any;
   location: string;
   goingCount: number;
 }
@@ -18,7 +18,7 @@ const UPCOMING_EVENTS: EventItem[] = [
     title: 'International Band Mu...',
     dateDay: '10',
     dateMonth: 'JUNE',
-    image: 'https://placehold.co/600x400/EEE/31343C',
+    image: require('@/assets/home/image1.png'),
     location: '36 Guild Street London, UK',
     goingCount: 20,
   },
@@ -27,7 +27,7 @@ const UPCOMING_EVENTS: EventItem[] = [
     title: 'Jo Malone London...',
     dateDay: '10',
     dateMonth: 'JUNE',
-    image: 'https://placehold.co/600x400/EEE/31343C',
+    image: require('@/assets/home/image2.png'),
     location: 'Radius Gallery, Santa Cruz',
     goingCount: 20,
   },
@@ -70,7 +70,11 @@ export function UpcomingEvents({
             {/* Card Image Banner */}
             <View className="relative w-full h-[130px] rounded-xl overflow-hidden mb-3">
               <Image
-                source={{ uri: event.image }}
+                source={
+                  typeof event.image === 'string'
+                    ? { uri: event.image }
+                    : event.image
+                }
                 style={{ width: '100%', height: '100%' }}
                 contentFit="cover"
               />

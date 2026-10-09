@@ -7,7 +7,7 @@ export interface NearbyEventItem {
   title: string;
   time: string;
   location: string;
-  image: string;
+  image: any;
 }
 
 const NEARBY_EVENTS: NearbyEventItem[] = [
@@ -16,7 +16,7 @@ const NEARBY_EVENTS: NearbyEventItem[] = [
     title: 'International Gala Music Festival',
     time: '10 June • 9:00 PM',
     location: '36 Guild Street London, UK',
-    image: 'https://placehold.co/200x200/EEE/31343C',
+    image: require('@/assets/home/image1.png'),
   },
 ];
 
@@ -50,7 +50,11 @@ export function NearbyEvents({
           className="mx-5 bg-white rounded-2xl p-3 shadow-sm border border-[#F2F2F2] flex-row items-center active:opacity-90"
         >
           <Image
-            source={{ uri: event.image }}
+            source={
+              typeof event.image === 'string'
+                ? { uri: event.image }
+                : event.image
+            }
             style={{ width: 72, height: 72, borderRadius: 12 }}
             contentFit="cover"
           />

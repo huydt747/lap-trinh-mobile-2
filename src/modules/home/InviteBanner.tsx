@@ -25,9 +25,9 @@ export function InviteBanner({ onPressInvite }: InviteBannerProps) {
         </Pressable>
       </View>
       <Image
-        source={{ uri: 'https://placehold.co/300x200/00F8FF/FFFFFF' }}
-        style={{ width: 100, height: 80, borderRadius: 12 }}
-        contentFit="cover"
+        source={require('@/assets/home/invite.png')}
+        style={{ width: 130, height: 95 }}
+        contentFit="contain"
       />
     </View>
   );
